@@ -43,6 +43,9 @@ public class LRUCache <T, V> {
         this.init(capacity);
     }
 
+    public int getCapacity() {
+        return capacity;
+    }
 
     public int getNumHit() {
         return numHit;

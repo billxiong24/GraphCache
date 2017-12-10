@@ -4,12 +4,12 @@ import Cache.BlockInfo;
 import Cache.LRUCache;
 import Node.GraphNode;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Process {
 
-    List<LRUCache<Float, GraphNode>> partitionedCaches;
-
+    private List<LRUCache<Float, GraphNode>> partitionedCaches;
 
     private int totalMisses, totalHits, numAccess;
 
@@ -32,8 +32,20 @@ public class Process {
         return totalMisses;
     }
 
+    private int checkCaches(Float key) {
+        for(int i = 0; i < this.partitionedCaches.size(); i++) {
+            if(this.partitionedCaches.get(i).contains(key)) {
+                return i;
+            }
+        }
+
+        return -1;
+    }
+
     public GraphNode retrieveFromPartitionedCache(Float key) {
-        int ind = this.hashKey(key);
+        int check = checkCaches(key);
+        int ind = check == -1 ? this.hashKey(key) : check;
+
         LRUCache<Float, GraphNode> cache = this.partitionedCaches.get(ind);
         BlockInfo<GraphNode> val = cache.get(key);
 
@@ -53,7 +65,12 @@ public class Process {
     }
 
     private int hashKey(Object key) {
-        int hash = key.hashCode();
-        return hash % this.partitionedCaches.size();
+        List<Integer> indices = new ArrayList<>();
+        for(int i = 0; i < this.partitionedCaches.size(); i++) {
+            for(int j = 0; j < this.partitionedCaches.get(i).getCapacity(); j++) {
+                indices.add(i);
+            }
+        }
+        return indices.get((int) (Math.random() * indices.size()));
     }
 }
