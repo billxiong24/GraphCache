@@ -35,7 +35,9 @@ public class Sim {
 //            GraphTraversal traversal = new BFS(node, p);
             GraphTraversal traversal = null;
             try {
-                traversal = className.getConstructor(GraphNode.class, Process.class).newInstance(node, p);
+                traversal = className.
+                        getConstructor(GraphNode.class, Process.class)
+                        .newInstance(node, p);
             } catch (InstantiationException e) {
                 e.printStackTrace();
             } catch(IllegalAccessException e) {
