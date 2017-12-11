@@ -50,6 +50,7 @@ public class Sim {
 
         GraphGen gen = new GraphGen(numNodes, percentCycle);
         GraphNode node = gen.genRandGraph(maxFan);
+//        GraphNode node2 = gen.genRandGraph(maxFan);
         GraphNode node2 = null;
         while(node2 == null) {
             node2 = gen.getRandNode(node, 2);
@@ -72,7 +73,7 @@ public class Sim {
 //            System.out.println("P2 total misses: " + process.getTotalMisses());
             double missRate = (double) process.getTotalMisses() / process.getNumAccess();
             System.out.println("P2 miss rate: " + missRate);
-        }), DFS.class);
+        }), BFS.class);
 
         a.start();
         b.start();

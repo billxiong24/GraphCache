@@ -58,6 +58,7 @@ public class GraphGen {
                 }
 
                 res.addChild(temp);
+//                temp.addChild(res);
 
                 visited.add(temp);
                 queue.add(temp);
