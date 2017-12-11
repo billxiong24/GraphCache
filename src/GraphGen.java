@@ -12,7 +12,6 @@ public class GraphGen {
 
     public GraphNode getRandNode(GraphNode node, int maxNodes) {
         int ind = (int) (Math.random() * maxNodes) ;
-//        System.out.println(ind);
         Queue<GraphNode> queue = new LinkedList<>();
         Set<GraphNode> visited = new HashSet<>();
         queue.add(node);

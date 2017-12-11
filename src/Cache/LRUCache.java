@@ -55,7 +55,11 @@ public class LRUCache <T, V> {
         return numEvict;
     }
 
-    public BlockInfo<V> get(T key) {
+    public int getNumEntries() {
+        return map.size();
+    }
+
+    public synchronized BlockInfo<V> get(T key) {
         if(!map.containsKey(key)) {
             //When cache miss, put key and value into map
             this.numEvict++;
@@ -77,7 +81,7 @@ public class LRUCache <T, V> {
         return map.containsKey(key);
     }
 
-    public void put(T key, V value) {
+    public synchronized void put(T key, V value) {
         if(map.containsKey(key)) {
             this.numHit++;
             Node n = map.get(key);

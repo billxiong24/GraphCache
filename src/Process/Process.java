@@ -38,10 +38,8 @@ public class Process {
                 return i;
             }
         }
-
         return -1;
     }
-
     public GraphNode retrieveFromPartitionedCache(Float key) {
         int check = checkCaches(key);
         int ind = check == -1 ? this.hashKey(key) : check;
