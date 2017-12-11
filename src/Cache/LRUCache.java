@@ -35,12 +35,15 @@ public class LRUCache <T, V> {
     public LRUCache(Disk <T, V>disk, int capacity) {
         this.disk = disk;
         this.init(capacity);
-
     }
 
     public LRUCache(int capacity) {
         this.disk = new Disk<T, V>();
         this.init(capacity);
+    }
+
+    public int getNumEntriesLeft() {
+        return capacity - size;
     }
 
     public int getCapacity() {
@@ -53,10 +56,6 @@ public class LRUCache <T, V> {
 
     public int getNumEvict() {
         return numEvict;
-    }
-
-    public int getNumEntries() {
-        return map.size();
     }
 
     public synchronized BlockInfo<V> get(T key) {
