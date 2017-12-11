@@ -5,17 +5,17 @@ public class Main {
 
     public static void main(String args[]) throws InterruptedException {
 
-        int size = 500;
-        while(size >= 500) {
-            algPerc(1.0, size);
-            algPerc(0.83, size);
-            algPerc(0.66, size);
-            algPerc(0.50, size);
-            algPerc(0.33, size);
-            algPerc(0.16, size);
-            algPerc(0.0, size);
-            size /= 4;
-        }
+//        int size = 500;
+//        while(size >= 500) {
+//            algPerc(1.0, size);
+//            algPerc(0.83, size);
+//            algPerc(0.66, size);
+//            algPerc(0.50, size);
+//            algPerc(0.33, size);
+//            algPerc(0.16, size);
+//            algPerc(0.0, size);
+//            size /= 4;
+//        }
     }
     private static void algPerc(double percent, int size) throws InterruptedException {
         System.out.println(percent);

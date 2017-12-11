@@ -24,6 +24,7 @@ public class DFS extends GraphTraversal {
             GraphNode g = stack.pop();
             process.retrieveFromPartitionedCache(g.getVal());
             for(GraphNode child : g.getChildren()) {
+                process.retrieveFromPartitionedCache(child.getVal());
                 if(!set.contains(child)) {
                     stack.push(child);
                     set.add(child);
