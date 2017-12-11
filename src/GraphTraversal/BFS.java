@@ -28,6 +28,7 @@ public class BFS extends GraphTraversal{
             process.retrieveFromPartitionedCache(res.getVal());
 
             for(GraphNode temp : res.getChildren()) {
+                process.retrieveFromPartitionedCache(temp.getVal());
                 if(!visited.contains(temp)) {
                     visited.add(temp);
                     queue.add(temp);
