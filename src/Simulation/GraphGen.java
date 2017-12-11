@@ -1,6 +1,7 @@
 package Simulation;
 
 import Node.GraphNode;
+import com.sun.corba.se.impl.orbutil.graph.Graph;
 
 import java.util.*;
 
@@ -34,6 +35,40 @@ public class GraphGen {
         return res;
     }
 
+    public void createRandConnection(GraphNode a, GraphNode b, int numConnections) {
+        List<GraphNode> randA = this.storeNodes(a);
+        List<GraphNode> randB = this.storeNodes(b);
+
+        int len = Math.min(numConnections, randA.size());
+
+        for(int i = 0; i < len; i++) {
+            GraphNode rand1 = randA.get((int) (Math.random() * randA.size()));
+            GraphNode rand2 = randA.get((int) (Math.random() * randB.size()));
+
+            rand1.addChild(rand2);
+            rand2.addChild(rand1);
+        }
+    }
+    private List<GraphNode> storeNodes(GraphNode node) {
+        List<GraphNode> store = new ArrayList<>();
+
+        Queue<GraphNode> queue = new LinkedList<>();
+        Set<GraphNode> visited = new HashSet<>();
+        queue.add(node);
+
+        while(!queue.isEmpty()) {
+            GraphNode res = queue.poll();
+            store.add(res);
+            for(GraphNode temp : res.getChildren()) {
+                if(!visited.contains(temp)) {
+                    visited.add(temp);
+                    queue.add(temp);
+                }
+            }
+        }
+        return store;
+    }
+
     public GraphNode genRandGraph(int maxChild) {
         GraphNode node = new GraphNode((float) Math.random());
         Queue<GraphNode> queue = new LinkedList<>();
@@ -58,7 +93,7 @@ public class GraphGen {
                 }
 
                 res.addChild(temp);
-//                temp.addChild(res);
+                temp.addChild(res);
 
                 visited.add(temp);
                 queue.add(temp);

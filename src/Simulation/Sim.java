@@ -36,9 +36,18 @@ public class Sim {
             GraphTraversal traversal = null;
             try {
                 traversal = className.getConstructor(GraphNode.class, Process.class).newInstance(node, p);
-            } catch (InstantiationException | IllegalAccessException | NoSuchMethodException | InvocationTargetException e) {
+            } catch (InstantiationException e) {
                 e.printStackTrace();
-            }
+            } catch(IllegalAccessException e) {
+                return;
+
+            } catch(NoSuchMethodException e) {
+                //default case
+                traversal = new BFS(node, p);
+                traversal.traverse();
+
+            } catch(InvocationTargetException ignored) { }
+
             traversal.traverse();
             callback.callback(p);
         });
@@ -51,6 +60,7 @@ public class Sim {
         GraphGen gen = new GraphGen(numNodes, percentCycle);
         GraphNode node = gen.genRandGraph(maxFan);
 //        GraphNode node2 = gen.genRandGraph(maxFan);
+//        gen.createRandConnection(node, node2, 100000);
         GraphNode node2 = null;
         while(node2 == null) {
             node2 = gen.getRandNode(node, 2);
@@ -73,7 +83,7 @@ public class Sim {
 //            System.out.println("P2 total misses: " + process.getTotalMisses());
             double missRate = (double) process.getTotalMisses() / process.getNumAccess();
             System.out.println("P2 miss rate: " + missRate);
-        }), BFS.class);
+        }), DFS.class);
 
         a.start();
         b.start();
